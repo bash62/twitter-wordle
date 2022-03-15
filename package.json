@@ -1,0 +1,33 @@
+{
+  "name": "twitter-wordle",
+  "version": "1.0.0",
+  "description": "A wordle twitter bot.",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx tsc -b ./tsconfig.json",
+    "start:dev": "ts-node-dev --respawn --transpile-only --poll src/index.ts",
+    "start:prod": "npx tsc -b ./tsconfig.json && node ./dist/index.js",
+    "start": "ts-node src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bash62/twitter-wordle.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bash62/twitter-wordle/issues"
+  },
+  "homepage": "https://github.com/bash62/twitter-wordle#readme",
+  "devDependencies": {
+    "@types/glob": "^7.2.0",
+    "@types/node": "^17.0.21",
+    "ts-node": "^10.7.0",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.6.2"
+  },
+  "dependencies": {
+    "canvas": "^2.9.0"
+  }
+}
