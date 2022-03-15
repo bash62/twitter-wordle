@@ -6,4 +6,5 @@ import Canvas from '../src/structures/Canvas';
 const C = new Canvas()
 
 C.toString()
-C.test()
+const canvas = C.createBackground()
+C.saveCanvasToImg(canvas)
