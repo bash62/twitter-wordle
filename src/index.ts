@@ -1,8 +1,6 @@
 
 
-import Canvas from './structures/Wordle';
-import Word from './structures/Word';
-import Core from './structures/Core';
+
 import Game from './structures/Game';
 import * as readline from 'readline';
 
@@ -14,12 +12,8 @@ let rl = readline.createInterface({
 
 
 
-
-
-
 const G = new Game("FR");
-G.log();
-//G.log();
+
 
 
 rl.question('Word :  ', (answer) => {
@@ -27,12 +21,15 @@ rl.question('Word :  ', (answer) => {
     rl.close();
 
 });
+rl.question('Word : 2 ', (answer) => {
+    G.playWord(answer)
+    rl.close();
 
+});
+rl.question('Word : 3 ', (answer) => {
+    G.playWord(answer)
+    rl.close();
 
-
-
-
-
-// core.readJSON();
+});
 
 

@@ -14,9 +14,14 @@ export default class Game implements GameInterface{
         public word= new Word(lang),
         public canvas= new Wordle(word.word),
         public round=0,
-        public playerAttemps= [],
+        public playerAttemps = [],
         public state: State="pending",
     ){
+        console.log(word)
+
+        this.canvas.createBackground();
+        //@ts-ignore
+        this.canvas.createRow(this.word.word,this.playerAttemps,this.round);
 
     }
 
@@ -37,7 +42,6 @@ export default class Game implements GameInterface{
 
             for(let i=0;i<this.word.word.length;i++){
                 
-                console.log(this.word.word.indexOf(word[i]))
 
                 if(word[i] === this.word.word[i]){
                     attempMap.set(i,letterPosition.GOOD);
@@ -51,18 +55,13 @@ export default class Game implements GameInterface{
 
             }
             this.playerAttemps.push(attempMap);
+            this.canvas.createBackground();
+            //@ts-ignore
+            this.canvas.createRow(word,this.playerAttemps,this.round);
+            console.log("joué.")
             this.round += 1;
         }
 
     }
-
-    log(){
-        console.log("New Worddlebot img saved")
-        this.canvas.createBackground();
-        this.canvas.saveCanvasToImg(this.canvas.GAME_CANVAS);
-        this.canvas.createRow(this.word.word,this.playerAttemps);
-    }
-
-
 
 }

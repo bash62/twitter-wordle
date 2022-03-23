@@ -1,11 +1,4 @@
-
-
-
-
-
 export default class Core {
-
-
     
     constructor() {
         
@@ -14,5 +7,4 @@ export default class Core {
     newGame(){
 
     }
-
 }

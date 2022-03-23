@@ -1,10 +1,7 @@
-
 const fs = require('fs');
 import { LangType, WordData, JsonData } from "../typings/Wordata";
 
-
 const wordlistFolder = __dirname + "/../../asset/wordlist/" ;
-
 
 export default class Word implements WordData {
 
@@ -12,12 +9,10 @@ export default class Word implements WordData {
         public langage: LangType,
         public cat?: string,
         public word?: string,
-        )
-        {
-            this.langage = langage;
-            this.pickRandomWord();
-
-        }
+    ){
+        this.langage = langage;
+        this.pickRandomWord();
+    }
 
 
     public getWord(): string {
@@ -29,7 +24,6 @@ export default class Word implements WordData {
     }
 
     private pickRandomWord(): void {
-
         let path = wordlistFolder+'/'+this.langage+'/'
         let files = fs.readdirSync(path);
 
@@ -38,7 +32,5 @@ export default class Word implements WordData {
         let jsonData:JsonData = JSON.parse(fs.readFileSync(path+chosenFile, {encoding:'utf8', flag:'r'}));
         this.cat = jsonData.CAT;
         this.word = jsonData.DATA[Math.floor(Math.random()*jsonData.DATA.length)]
-
     }
-
 }
