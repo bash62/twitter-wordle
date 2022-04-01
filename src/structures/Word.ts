@@ -22,6 +22,9 @@ export default class Word implements WordData {
     public setWord(value:string){
         this.word = value;
     }
+    /**
+     * 
+     */
 
     private pickRandomWord(): void {
         let path = wordlistFolder+'/'+this.langage+'/'

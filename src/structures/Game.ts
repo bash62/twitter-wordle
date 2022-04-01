@@ -17,16 +17,23 @@ export default class Game implements GameInterface{
         public playerAttemps = [],
         public state: State="pending",
     ){
-        console.log(word)
 
-        this.canvas.createBackground();
-        //@ts-ignore
-        this.canvas.createRow(this.word.word,this.playerAttemps,this.round);
-
+        this.initCanvas();
+        console.log(this.word.word)
     }
 
+    public initCanvas(): void {
+
+        this.canvas = new Wordle(this.word.word);
+        this.canvas.createBackground();
+        
+        //@ts-ignore
+        this.canvas.createEmptyRow(this.word.word,this.playerAttemps,this.round);
+        
+    }
 
     public playWord(word: string): void{
+        
         
         word = word.toUpperCase();
         if(word.length !== this.word.word.length){
@@ -38,28 +45,38 @@ export default class Game implements GameInterface{
 
         else{
 
-            const attempMap: AttempMapType = new Map();
+            const attempMap: AttempMapType = {word,infoPosition: new Map()};
 
             for(let i=0;i<this.word.word.length;i++){
                 
 
                 if(word[i] === this.word.word[i]){
-                    attempMap.set(i,letterPosition.GOOD);
+                    attempMap.infoPosition.set(i,letterPosition.GOOD);
                 }
                 else if(this.word.word.indexOf(word[i]) > -1){
-                    attempMap.set(i,letterPosition.SOMEWHERE);
+                    attempMap.infoPosition.set(i,letterPosition.SOMEWHERE);
                 }
                 else {
-                    attempMap.set(i,letterPosition.BAD);
+                    attempMap.infoPosition.set(i,letterPosition.BAD);
                 }
 
             }
             this.playerAttemps.push(attempMap);
             this.canvas.createBackground();
+
+            for(var i=0;i<this.playerAttemps.length;i++){
+                console.log(i)  
+                //@ts-ignore
+                this.canvas.createRow(this.playerAttemps[i].word,this.playerAttemps,i);
+            }
+
+            
+
+
             //@ts-ignore
-            this.canvas.createRow(word,this.playerAttemps,this.round);
-            console.log("joué.")
+            this.canvas.createEmptyRow(attempMap.word,this.playerAttemps,this.round+1);
             this.round += 1;
+
         }
 
     }

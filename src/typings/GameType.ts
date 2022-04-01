@@ -14,4 +14,11 @@ export interface GameInterface {
 
 }
 
-export type AttempMapType = Map<number,letterPosition> 
+interface MapAttempsValue {
+
+    infoPosition: Map<number,letterPosition>,
+    word: string
+
+}
+
+export type AttempMapType =  MapAttempsValue;

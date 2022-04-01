@@ -16,20 +16,27 @@ const G = new Game("FR");
 
 
 
-rl.question('Word :  ', (answer) => {
-    G.playWord(answer)
-    rl.close();
+rl.question('Premiere  tentetative : ', (answer1) => {
+    G.playWord(answer1);
+    rl.question('Deuxieme tentative : ', (answer2) => {
+        G.playWord(answer2)
+        rl.question('Deuxieme tentative : ', (answer3) => {
+          G.playWord(answer3)
+          rl.question('Deuxieme tentative : ', (answer4) => {
+            G.playWord(answer4)
+            console.log("ok") 
+            rl.close();
+        });
+          console.log("ok") 
+          rl.close();
+      });
+        console.log("ok") 
+        rl.close();
+    });
 
 });
-rl.question('Word : 2 ', (answer) => {
-    G.playWord(answer)
-    rl.close();
 
-});
-rl.question('Word : 3 ', (answer) => {
-    G.playWord(answer)
-    rl.close();
 
-});
+
 
 

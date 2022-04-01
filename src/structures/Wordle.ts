@@ -22,29 +22,21 @@ export default class Wordle {
 
     public createRow(word: string, playerAttemps: [AttempMapType], round: number): void {
 
-        console.log("joué. Wordle", round)
+        console.log("<<< CreateRow >>>", round)
 
         let WORD = this.WORD.length;
- 
+
         const CUBE_SIZE = this.CANVAS_WIDTH / 15;
         const CUBE_OFFSET = 0.35;
         const ROW_SIZE = CUBE_SIZE * WORD + (WORD * CUBE_OFFSET) / 2;
         const CUBE_BASE = (this.CANVAS_WIDTH / 2 - ROW_SIZE / 2) + 1.5
 
-        if (round == 0) {
-            for (let i = 0; i < WORD; i++) {
-                this.GAME_CANVAS_CTX.fillStyle = '#2a2756'
-
-                //CUBE
-                this.GAME_CANVAS_CTX.fillRect(CUBE_BASE + (i * CUBE_SIZE) + CUBE_OFFSET * i, this.CANVAS_HEIGHT / 3 + 35, CUBE_SIZE, CUBE_SIZE)
-            }
-        }
 
         for (let a = round; a < playerAttemps.length; a++) {
             for (let i = 0; i < WORD; i++) {
                 console.log("ok")
                 //CUBE
-                switch (playerAttemps[a].get(i)) {
+                switch (playerAttemps[a].infoPosition.get(i)) {
                     case 0: {
                         this.GAME_CANVAS_CTX.fillStyle = '#2a27'
                         break;
@@ -70,6 +62,88 @@ export default class Wordle {
 
         this.saveCanvasToImg(this.GAME_CANVAS);
     }
+
+    public createEmptyRow(word: string, playerAttemps: [AttempMapType], round: number): void {
+
+        console.log("<<< CreateEmptyRow >>>", round)
+
+        let WORD = this.WORD.length;
+
+        const CUBE_SIZE = this.CANVAS_WIDTH / 15;
+        const CUBE_OFFSET = 0.35;
+        const ROW_SIZE = CUBE_SIZE * WORD + (WORD * CUBE_OFFSET) / 2;
+        const CUBE_BASE = (this.CANVAS_WIDTH / 2 - ROW_SIZE / 2) + 1.5
+   
+
+        for (let i = 0; i < WORD; i++) {
+
+
+            if(playerAttemps[round] ){
+                switch (playerAttemps[round].infoPosition.get(i)) {
+                    case 0: {
+                        this.GAME_CANVAS_CTX.fillStyle = '#2a27'
+                        this.GAME_CANVAS_CTX.fillRect(CUBE_BASE + (i * CUBE_SIZE) + CUBE_OFFSET * i, this.CANVAS_HEIGHT / 3 + 35 + round * CUBE_SIZE + round* CUBE_OFFSET, CUBE_SIZE, CUBE_SIZE)
+                        this.GAME_CANVAS_CTX.font = '65px Bangers '
+                        this.GAME_CANVAS_CTX.fillStyle = "#fff"
+                        this.GAME_CANVAS_CTX.fillText(word[i], (CUBE_BASE + (i * CUBE_SIZE) + CUBE_SIZE / 2 - 15), this.CANVAS_HEIGHT / 3 + 25 + round * CUBE_SIZE + round * CUBE_OFFSET + CUBE_SIZE - 6)
+            
+                        break;
+                    }
+                    default: {
+                        this.GAME_CANVAS_CTX.fillStyle = '#2a2756'
+                        this.GAME_CANVAS_CTX.fillRect(CUBE_BASE + (i * CUBE_SIZE) + CUBE_OFFSET * i, this.CANVAS_HEIGHT / 3 + 35 + round * CUBE_SIZE + round* CUBE_OFFSET, CUBE_SIZE, CUBE_SIZE)
+                        this.GAME_CANVAS_CTX.font = '65px Bangers '
+                        this.GAME_CANVAS_CTX.fillStyle = "#fff"
+                        this.GAME_CANVAS_CTX.fillText(".", (CUBE_BASE + (i * CUBE_SIZE) + CUBE_SIZE / 2 - 15), this.CANVAS_HEIGHT / 3 + 25 + round * CUBE_SIZE + round * CUBE_OFFSET + CUBE_SIZE - 6)
+            
+                        break;
+                    }
+                }
+            }
+            else if(playerAttemps[round-1]){
+                switch (playerAttemps[round-1].infoPosition.get(i)) {
+                    case 0: {
+                        this.GAME_CANVAS_CTX.fillStyle = '#2a27'
+                        this.GAME_CANVAS_CTX.fillRect(CUBE_BASE + (i * CUBE_SIZE) + CUBE_OFFSET * i, this.CANVAS_HEIGHT / 3 + 35 + round * CUBE_SIZE + round* CUBE_OFFSET, CUBE_SIZE, CUBE_SIZE)
+                        this.GAME_CANVAS_CTX.font = '65px Bangers '
+                        this.GAME_CANVAS_CTX.fillStyle = "#fff"
+                        this.GAME_CANVAS_CTX.fillText(word[i], (CUBE_BASE + (i * CUBE_SIZE) + CUBE_SIZE / 2 - 15), this.CANVAS_HEIGHT / 3 + 25 + round * CUBE_SIZE + round * CUBE_OFFSET + CUBE_SIZE - 6)
+            
+                        break;
+                    }
+                    default: {
+                        this.GAME_CANVAS_CTX.fillStyle = '#2a2756'
+                        this.GAME_CANVAS_CTX.fillRect(CUBE_BASE + (i * CUBE_SIZE) + CUBE_OFFSET * i, this.CANVAS_HEIGHT / 3 + 35 + round * CUBE_SIZE + round* CUBE_OFFSET, CUBE_SIZE, CUBE_SIZE)
+                        this.GAME_CANVAS_CTX.font = '65px Bangers '
+                        this.GAME_CANVAS_CTX.fillStyle = "#fff"
+                        this.GAME_CANVAS_CTX.fillText(".", (CUBE_BASE + (i * CUBE_SIZE) + CUBE_SIZE / 2 - 15), this.CANVAS_HEIGHT / 3 + 25 + round * CUBE_SIZE + round * CUBE_OFFSET + CUBE_SIZE - 6)
+            
+                        break;
+                    }
+                }
+
+            }
+            else{
+                this.GAME_CANVAS_CTX.fillStyle = '#2a2756'
+                this.GAME_CANVAS_CTX.fillRect(CUBE_BASE + (i * CUBE_SIZE) + CUBE_OFFSET * i, this.CANVAS_HEIGHT / 3 + 35 + round * CUBE_SIZE + round* CUBE_OFFSET, CUBE_SIZE, CUBE_SIZE)
+                this.GAME_CANVAS_CTX.font = '65px Bangers '
+                this.GAME_CANVAS_CTX.fillStyle = "#fff"
+                this.GAME_CANVAS_CTX.fillText(".", (CUBE_BASE + (i * CUBE_SIZE) + CUBE_SIZE / 2 - 15), this.CANVAS_HEIGHT / 3 + 25 + round * CUBE_SIZE + round * CUBE_OFFSET + CUBE_SIZE - 6)
+    
+            }
+
+            console.log(round)
+            //CUBE
+            
+
+            
+
+        }
+
+
+        this.saveCanvasToImg(this.GAME_CANVAS);
+    }
+
 
 
     public createBackground() {
